@@ -1,6 +1,7 @@
 
-const loadMeals = () =>{
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=fish')
+const loadMeals = (searchText) =>{
+  const url =`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
+    fetch(url)
     .then(res => res.json())
     .then(data => displayMeals(data.meals))
     // fetch error handling
@@ -11,7 +12,8 @@ const loadMeals = () =>{
  
 const displayMeals = meals =>{
     // step-1: get container element
-   const mealsContainer = document.getElementById('meals-container')
+   const mealsContainer = document.getElementById('meals-container');
+    mealsContainer.innerText = ''
 
     meals.forEach (meal =>{
         console.log(meal)
@@ -37,4 +39,11 @@ const displayMeals = meals =>{
 
 };
 
-loadMeals()
+document.getElementById('searchMeals').addEventListener('click', function(){
+  const searchText = document.getElementById('search-field').value ;
+  // search Meals
+  console.log(searchText)
+  loadMeals(searchText)
+})
+
+loadMeals('fish')
